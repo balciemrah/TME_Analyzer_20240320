@@ -1,0 +1,10 @@
+name: TME_Analyser
+channels:
+ - conda-forge
+dependencies:
+ - python=3.8.10
+ - gxx_linux-64
+ - gcc_linux-64
+ - pip
+ - pip:
+   - -r requirements.txt
