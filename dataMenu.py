@@ -836,14 +836,14 @@ def PhenotypeSelection(self):
     def axHisty_changed(*b):
         hist_limits = self.hist_spanner_limits
         a = np.array(b)
+        points = np.transpose((self.x_data.ravel(), self.y_data.ravel()))
         if a[0] == a[1]:
             a[1] = np.inf
-        elif a[1] < a[0]:
-            a[0], a[1] = a[0], a[1]
+        elif a[1] > np.max(points[:,1]):
+            a[1] = np.inf
         hist_limits[:, 1] = a
         cell_props = self.Cell_props[self.activeImage]
         show_data = np.array(cell_props['Show Data'])
-        points = np.transpose((self.x_data.ravel(), self.y_data.ravel()))
         mask = (points[:, 1] > hist_limits[0, 1]) & (
                 points[:, 1] < hist_limits[1, 1]) & (
                         points[:, 0] > hist_limits[0, 0]) & (
@@ -859,14 +859,14 @@ def PhenotypeSelection(self):
     def axHistx_changed(*b):
         hist_limits = self.hist_spanner_limits
         a = np.array(b)
+        points = np.transpose((self.x_data.ravel(), self.y_data.ravel()))
         if a[0] == a[1]:
             a[1] = np.inf
-        elif a[1] < a[0]:
-            a[0], a[1] = a[0], a[1]
+        elif a[1] > np.max(points[:,0]):
+            a[1] = np.inf
         hist_limits[:, 0] = a
         cell_props = self.Cell_props[self.activeImage]
         show_data = np.array(cell_props['Show Data'])
-        points = np.transpose((self.x_data.ravel(), self.y_data.ravel()))
         mask = (points[:, 1] > hist_limits[0, 1]) & (
                 points[:, 1] < hist_limits[1, 1]) & (
                         points[:, 0] > hist_limits[0, 0]) & (

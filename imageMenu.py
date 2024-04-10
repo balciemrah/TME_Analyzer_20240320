@@ -973,11 +973,6 @@ def ThresholdForeground(self):
         ax = self.ax
         im_temp = self.im_2_display
         i = self.Channel_of_choice
-        foreground_threshold = np.array(
-                self.foreground_threshold[self.activeImage])
-        foreground_threshold[0][i] = a[0]
-        if (a[1] != a[0]):
-            foreground_threshold[1][i] = a[1]
         im_raw = np.array(self.im_raw_temp)
         im_temp = np.array(self.im_2_display)
         mask_copy = np.ones((im_raw.shape[0], im_raw.shape[1]), np.bool)
@@ -987,6 +982,14 @@ def ThresholdForeground(self):
             to_plot = im_raw[:, :, i].copy()
             to_plot = to_plot - ndi.filters.uniform_filter(to_plot,
                                                             filter_size)
+        foreground_threshold = np.array(
+                self.foreground_threshold[self.activeImage])
+        foreground_threshold[0][i] = a[0]
+        if (a[1] != a[0]):
+            if np.max(to_plot) < a[1]:
+                foreground_threshold[1][i] = np.inf
+            else:
+                foreground_threshold[1][i] = a[1]
         mask_copy = (np.array(to_plot >= foreground_threshold[
                 0][i]) &
                         (to_plot <= foreground_threshold[1][i]) &
@@ -1228,6 +1231,10 @@ def ThresholdForeground(self):
         foreground_threshold = [
                 np.zeros(n_channels), np.full(n_channels, np.inf)]
     popup = tkinter.Tk()
+    while len(foreground_threshold[0]) < n_channels:
+        foreground_threshold = [np.append(foreground_threshold[0],0), np.append(foreground_threshold[1],np.inf)]
+    while len(self.adaptive_temp) < n_channels:
+        self.adaptive_temp = np.append(self.adaptive_temp,0)
     self.foreground_threshold[self.activeImage] = foreground_threshold
     self.fore_thres_temp = np.array(foreground_threshold)
     self.popup = popup
@@ -1499,6 +1506,8 @@ def SegmentDetection(self):
                                                                 filter_size)
                 to_plot[to_plot < 0] = 0
                 im_raw[:, :, i] = to_plot
+            if np.max(im_raw[:, :, i]) < segment_threshold[1][i]:
+                segment_threshold[1][i] = np.inf
             mask_copy = (np.array(im_raw[:, :, i] >= segment_threshold[
                     0][i]) &
                             (im_raw[:, :, i] <= segment_threshold[1][i]) &
@@ -2253,7 +2262,7 @@ def FillHoles(self):
             ax2 = self.ax2
             ax2.clear()
             ax2.hist(Fore_area, bins=np.logspace(
-                        np.log10(10), np.log10(Fore_area.max()), 50),
+                            np.log10(10), np.log10(max_fore_back_area), 50),
                         log=True)
             ax2.autoscale(True)
             ax2.set_xscale("log")
@@ -2273,7 +2282,7 @@ def FillHoles(self):
             ax3 = self.ax3
             ax3.clear()
             ax3.hist(Back_area, bins=np.logspace(
-                        np.log10(10), np.log10(Fore_area.max()), 50),
+                            np.log10(10), np.log10(max_fore_back_area), 50),
                         log=True)
             ax3.autoscale(True)
             ax3.set_xscale("log")
@@ -2426,12 +2435,16 @@ def FillHoles(self):
         self.HoleLimits[0] = a[0]
         if (a[1] != a[0]):
             self.HoleLimits[1] = a[1]
+        if a[1] > max_fore_back_area:
+            self.HoleLimits[1] = np.inf
         remake_fill_after_change()
 
     def Fore_fill_changed(*a):
         self.ForeLimits[0] = a[0]
         if (a[1] != a[0]):
             self.ForeLimits[1] = a[1]
+        if a[1] > max_fore_back_area:
+            self.ForeLimits[1] = np.inf
         remake_fill_after_change()
 
     def remake_fill_after_change(*a):
@@ -2522,7 +2535,7 @@ def FillHoles(self):
         ax2 = self.ax2
         ax2.clear()
         ax2.hist(Fore_area, bins=np.logspace(
-                        np.log10(10), np.log10(Fore_area.max()), 50),
+                        np.log10(10), np.log10(max_fore_back_area), 50),
                     log=True)
         ax2.autoscale(True)
         ax2.set_xscale("log")
@@ -2537,7 +2550,7 @@ def FillHoles(self):
         ax3 = self.ax3
         ax3.clear()
         ax3.hist(Back_area, bins=np.logspace(
-                        np.log10(10), np.log10(Back_area.max()), 50),
+                        np.log10(10), np.log10(max_fore_back_area), 50),
                     log=True)
         ax3.autoscale(True)
         ax3.set_xscale("log")
@@ -2549,6 +2562,16 @@ def FillHoles(self):
         span_selector2.active = True
         ax3.axis('on')
         self.ax3_canvas.draw()
+        self.fore_lim_label.config(text="Foreground Area Limits" +
+                                    "   -   " +
+                                    str(self.ForeLimits[0]) +
+                                    " - " + str(self.ForeLimits[1]))
+        self.fore_lim_label.update()
+        self.back_lim_label.config(text="Background Area Limits" +
+                                    "   -   " +
+                                    str(self.HoleLimits[0]) +
+                                    " - " + str(self.HoleLimits[1]))
+        self.back_lim_label.update()
 
     def SaveFill(*a):
         def SaveFillSure(*a):
@@ -2699,6 +2722,7 @@ def FillHoles(self):
     segName = analyze_index[self.fill_ch]
     n_channels = self.n_channels_temp
     im_raw = self.im_raw_temp
+    max_fore_back_area = im_raw.shape[0] * im_raw.shape[1]
     if segName == "Foreground":
         fore_thres = analysis_params["Foreground"]["thres"]
         if 'adaptive_size' in analysis_params["Foreground"]:
@@ -2706,6 +2730,10 @@ def FillHoles(self):
                 "Foreground"]["adaptive_size"]
         else:
             adaptive_temp = np.zeros(n_channels)
+        while len(fore_thres[0]) < n_channels:
+            fore_thres = [np.append(fore_thres[0],0), np.append(fore_thres[1],np.inf)]
+        while len(adaptive_temp) < n_channels:
+            adaptive_temp = np.append(adaptive_temp,0)
         self.foreground_threshold[self.activeImage] = fore_thres
         im_temp = np.zeros((im_raw.shape[0], im_raw.shape[1]),
                             dtype=np.bool)
@@ -2822,6 +2850,10 @@ def FillHoles(self):
                     "Segments"][segName]["adaptive_size"]
         else:
             adaptive_thres = np.zeros(n_channels)
+        while len(seg_thres[0]) < n_channels:
+            seg_thres = [np.append(seg_thres[0],0), np.append(seg_thres[1],np.inf)]
+        while len(adaptive_thres) < n_channels:
+            adaptive_thres = np.append(adaptive_thres,0)
         for i in range(n_channels):
             to_plot = im_raw[:, :, i]
             if adaptive_thres[i] > 0:
@@ -2988,7 +3020,8 @@ def FillHoles(self):
     image_toolbar2.update()
     ax2.clear()
     ax2.hist(Fore_area, bins=np.logspace(
-                    np.log10(10), np.log10(Fore_area.max()), 50), log=True)
+                    np.log10(10), np.log10(max_fore_back_area), 50),
+                log=True)
     ax2.autoscale(True)
     ax2.set_xscale("log")
     garbage = matplotlib.widgets.Cursor(
@@ -3025,7 +3058,7 @@ def FillHoles(self):
     image_toolbar3.update()
     ax3.clear()
     ax3.hist(Back_area, bins=np.logspace(
-                    np.log10(10), np.log10(Back_area.max()), 50), log=True)
+                    np.log10(10), np.log10(max_fore_back_area), 50), log=True)
     ax3.autoscale(True)
     ax3.set_xscale("log")
     garbage2 = matplotlib.widgets.Cursor(
@@ -3784,7 +3817,10 @@ def NucleusDetection(self, external_mode=False, Fore_mask = []):
     def Nuc_changed(*a):
         self.NucLimits[0] = a[0]
         if (a[1] != a[0]):
-            self.NucLimits[1] = a[1]
+            if a[1] > max_nucleus_area:
+                self.NucLimits[1] = np.inf
+            else:    
+                self.NucLimits[1] = a[1]
         else:
             self.NucLimits[1] = np.inf
         Get_changed_nuc()
@@ -3831,6 +3867,7 @@ def NucleusDetection(self, external_mode=False, Fore_mask = []):
             label = i + 1
             nucleus_area.append(np.sum(DAPI_labels[s1] == label))
         nucleus_area = np.array(nucleus_area)
+        max_nucleus_area = np.max(nucleus_area)
         popup.wm_title("Nucleus and Cell Segmentation")
         label = tkinter.Label(popup, text="Nucleus and Cell Segmentation" +
                                 " for file :" +
@@ -5893,14 +5930,14 @@ def Tissue_analysis(self, tissue_name = [], external_use = False):
         def axHisty_changed(*b):
             hist_limits = self.hist_spanner_limits
             a = np.array(b)
+            points = np.transpose((self.x_data.ravel(), self.y_data.ravel()))
             if a[0] == a[1]:
                 a[1] = np.inf
-            elif a[1] < a[0]:
-                a[0], a[1] = a[0], a[1]
+            elif a[1] > np.max(points[:,1]):
+                a[1] = np.inf
             hist_limits[:, 1] = a
             tissue_props = self.Tissue_props[self.activeImage][self.Pheno_x_variable1.get()]
             show_data = np.array(tissue_props['Show Data'])
-            points = np.transpose((self.x_data.ravel(), self.y_data.ravel()))
             mask = (points[:, 1] > hist_limits[0, 1]) & (
                     points[:, 1] < hist_limits[1, 1]) & (
                             points[:, 0] > hist_limits[0, 0]) & (
@@ -5916,14 +5953,14 @@ def Tissue_analysis(self, tissue_name = [], external_use = False):
         def axHistx_changed(*b):
             hist_limits = self.hist_spanner_limits
             a = np.array(b)
+            points = np.transpose((self.x_data.ravel(), self.y_data.ravel()))
             if a[0] == a[1]:
                 a[1] = np.inf
-            elif a[1] < a[0]:
-                a[0], a[1] = a[0], a[1]
+            elif a[1] > np.max(points[:,0]):
+                a[1] = np.inf
             hist_limits[:, 0] = a
             tissue_props = self.Tissue_props[self.activeImage][self.Pheno_x_variable1.get()]
             show_data = np.array(tissue_props['Show Data'])
-            points = np.transpose((self.x_data.ravel(), self.y_data.ravel()))
             mask = (points[:, 1] > hist_limits[0, 1]) & (
                     points[:, 1] < hist_limits[1, 1]) & (
                             points[:, 0] > hist_limits[0, 0]) & (
