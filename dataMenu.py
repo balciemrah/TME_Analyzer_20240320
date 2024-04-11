@@ -42,16 +42,15 @@ def Apply_default_analysis(self):
     def Apply_default_analysis_sure(*a):
         self.analysis_params[self.activeImage] = {
             'Segments': {
-                'DAPI-Filter': {'Visible': False, 'filter_1': 0, 'filter_2': 1000, 'filter_type1': 'Gaussian', 'filter_type2': 'Uniform', 'operator': '-', 'Ch_name': 'DAPI'},
-                'CD8-Filter': {'Visible': False, 'filter_1': 0, 'filter_2': 1000, 'filter_type1': 'Gaussian', 'filter_type2': 'Uniform', 'operator': '-', 'Ch_name': 'CD8'},
-                'CD20-Filter': {'Visible': False, 'filter_1': 0, 'filter_2': 1000, 'filter_type1': 'Gaussian', 'filter_type2': 'Uniform', 'operator': '-', 'Ch_name': 'CD20'},
-                'CD3-Filter': {'Visible': False, 'filter_1': 0, 'filter_2': 1000, 'filter_type1': 'Gaussian', 'filter_type2': 'Uniform', 'operator': '-', 'Ch_name': 'CD3'},
-                'CD68-Filter': {'Visible': False, 'filter_1': 0, 'filter_2': 1000, 'filter_type1': 'Gaussian', 'filter_type2': 'Uniform', 'operator': '-', 'Ch_name': 'CD68'},
-                'CD56-Filter': {'Visible': False, 'filter_1': 0, 'filter_2': 1000, 'filter_type1': 'Gaussian', 'filter_type2': 'Uniform', 'operator': '-', 'Ch_name': 'CD56'},
-                'CK-Filter': {'Visible': False, 'filter_1': 0, 'filter_2': 1000, 'filter_type1': 'Gaussian', 'filter_type2': 'Uniform', 'operator': '-', 'Ch_name': 'CK'},
-                'DAPI': {'thres': 'Stardist_2D_versatile_fluo', 'ch_used': 'DAPI', 'n_ch_used': 0, 'class': 'Nuc', 'NucLimits': 'Stardist_2D_versatile_fluo', 'CellLimits': np.inf, 'CellMeth': 'Extend Cell Area To:', 'd_prob_thres': 0.0, 'd_nms_thres': 0.0},
-                'CK_filtered': {'Visible': True, 'filter_1': 10, 'filter_2': 5000, 'filter_type1': 'Gaussian', 'filter_type2': 'Minimum', 'operator': 'and-', 'Ch_name': 'CK', 'normalize': 0},
-                'Tumor': {'thres': np.array([[ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.], [np.inf, np.inf, np.inf, np.inf, np.inf, np.inf, np.inf, np.inf, np.inf]]), 'adaptive_size': np.array([0., 0., 0., 0., 0., 0., 0., 0., 0.]), 'ForeLimits': [5000, np.inf], 'HoleLimits': [5000, np.inf], 'ExcludeEdges': False}},
+                'CK_filtered': {'Visible': True, 'filter_1': 10, 'filter_2': 1000, 'filter_type1': 'Gaussian', 'filter_type2': 'Minimum', 'operator': 'and-', 'Ch_name': 'CK', 'normalize': 0, 'normalize': 0},
+                'CD8-Filter': {'Visible': False, 'filter_1': 0, 'filter_2': 1000, 'filter_type1': 'Gaussian', 'filter_type2': 'Uniform', 'operator': '-', 'Ch_name': 'CD8', 'normalize': 0},
+                'CD20-Filter': {'Visible': False, 'filter_1': 0, 'filter_2': 1000, 'filter_type1': 'Gaussian', 'filter_type2': 'Uniform', 'operator': '-', 'Ch_name': 'CD20', 'normalize': 0},
+                'CD3-Filter': {'Visible': False, 'filter_1': 0, 'filter_2': 1000, 'filter_type1': 'Gaussian', 'filter_type2': 'Uniform', 'operator': '-', 'Ch_name': 'CD3', 'normalize': 0},
+                'CD68-Filter': {'Visible': False, 'filter_1': 0, 'filter_2': 1000, 'filter_type1': 'Gaussian', 'filter_type2': 'Uniform', 'operator': '-', 'Ch_name': 'CD68', 'normalize': 0},
+                'CD56-Filter': {'Visible': False, 'filter_1': 0, 'filter_2': 1000, 'filter_type1': 'Gaussian', 'filter_type2': 'Uniform', 'operator': '-', 'Ch_name': 'CD56', 'normalize': 0},
+                'CK-Filter': {'Visible': False, 'filter_1': 0, 'filter_2': 1000, 'filter_type1': 'Gaussian', 'filter_type2': 'Uniform', 'operator': '-', 'Ch_name': 'CK', 'normalize': 0},
+                'Tumor': {'thres': np.array([[ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.], [np.inf, np.inf, np.inf, np.inf, np.inf, np.inf, np.inf, np.inf, np.inf]]), 'adaptive_size': np.array([0., 0., 0., 0., 0., 0., 0., 0., 0.]), 'ForeLimits': [5000, np.inf], 'HoleLimits': [5000, np.inf], 'ExcludeEdges': False},
+                'DAPI': {'thres': 'Stardist_2D_versatile_fluo', 'ch_used': 'DAPI', 'n_ch_used': 0, 'class': 'Nuc', 'NucLimits': 'Stardist_2D_versatile_fluo', 'CellLimits': np.inf, 'CellMeth': 'Extend Cell Area To:', 'd_prob_thres': 0.0, 'd_nms_thres': 0.0}},
             'Phenotypes': {
                 'CD8+': {'x_axis0': 'Linear', 'x_axis1': 'Nucleus', 'x_axis2': 'Geometry', 'x_axis3': 'Area', 'y_axis0': 'Log', 'y_axis1': 'Cell', 'y_axis2': 'CD8', 'y_axis3': 'Mean Intensity', 'positive_area': [], 'hist_limits': np.array([[0. , 0.4], [np.inf, np.inf]])},
                 'CD20+': {'x_axis0': 'Linear', 'x_axis1': 'Nucleus', 'x_axis2': 'Geometry', 'x_axis3': 'Area', 'y_axis0': 'Log', 'y_axis1': 'Cell', 'y_axis2': 'CD20', 'y_axis3': 'Mean Intensity', 'positive_area': [], 'hist_limits': np.array([[0. , 0.7], [np.inf, np.inf]])},
@@ -59,7 +58,7 @@ def Apply_default_analysis(self):
                 'CD68+': {'x_axis0': 'Linear', 'x_axis1': 'Nucleus', 'x_axis2': 'Geometry', 'x_axis3': 'Area', 'y_axis0': 'Log', 'y_axis1': 'Cell', 'y_axis2': 'CD68', 'y_axis3': 'Mean Intensity', 'positive_area': [], 'hist_limits': np.array([[ 0.,  1.], [np.inf, np.inf]])},
                 'CD56+': {'x_axis0': 'Linear', 'x_axis1': 'Nucleus', 'x_axis2': 'Geometry', 'x_axis3': 'Area', 'y_axis0': 'Log', 'y_axis1': 'Cell', 'y_axis2': 'CD56', 'y_axis3': 'Mean Intensity', 'positive_area': [], 'hist_limits': np.array([[0. , 0.7], [np.inf, np.inf]])},
                 'CK+': {'x_axis0': 'Linear', 'x_axis1': 'Nucleus', 'x_axis2': 'Geometry', 'x_axis3': 'Area', 'y_axis0': 'Log', 'y_axis1': 'Cell', 'y_axis2': 'CK', 'y_axis3': 'Mean Intensity', 'positive_area': [], 'hist_limits': np.array([[0. , 0.1], [np.inf, np.inf]])}},
-            'Foreground': {'thres': [np.array([0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.    ]), np.array([np.inf, np.inf, np.inf, np.inf, np.inf, np.inf, np.inf, np.inf, np.inf])], 'adaptive_size': np.array([1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,    0]), 'ForeLimits': [5000, np.inf], 'HoleLimits': [5000, np.inf], 'ExcludeEdges': False}}
+            'Foreground': {'thres': [np.array([0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.    ]), np.array([np.inf, np.inf, np.inf, np.inf, np.inf, np.inf, np.inf, np.inf, np.inf])], 'adaptive_size': np.array([1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,    0]), 'ForeLimits': [5000, np.inf], 'HoleLimits': [5000, np.inf], 'ExcludeEdges': False}}
         self.Analysis_like = self.activeImage
         QuickAnalysisLikeSure(self)
     if len(self.FileDictionary) == 0:
