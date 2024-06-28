@@ -2,7 +2,10 @@
 
 ## Introduction
 TME-Analyzer is a stand alone software for analysis of fluorescent and other high-dimensional images that have a nuclear marker for cell detection. It comes with integrated quantification of cellular and tissue phenotypes, their densities in defined compartments and their interspacing, as well as visualization and exportation of data. This repository contains the Python code, as described in the paper:
-Hayri E Balcioglu, Rebecca Wijers, Marcel Smid, Dora Hammerl, Anita M Trapman-Jansen, Astrid Oostvogels, Mieke Timmermans, John WM Martens and Reno Debets. ![TME-Analyzer: a new interactive and dynamic image analysis tool that identified immune cell distances as predictors for survival of triple negative breast cancer patients](https://doi.org/10.1038/s44303-024-00022-6). npj Imaging.
+
+Hayri E Balcioglu, Rebecca Wijers, Marcel Smid, Dora Hammerl, Anita M Trapman-Jansen, Astrid Oostvogels, Mieke Timmermans, John WM Martens and Reno Debets. 
+![TME-Analyzer: a new interactive and dynamic image analysis tool that identified immune cell distances as predictors for survival of triple negative breast cancer patients](https://doi.org/10.1038/s44303-024-00022-6). 
+npj Imaging.
 
 Please cite the paper if you are using TME-Analyzer or (parts of) this code in your research.
 
