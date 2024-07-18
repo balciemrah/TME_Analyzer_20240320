@@ -10,22 +10,23 @@ import os
 from tkinter import ttk as ttkinter
 import tkinter.messagebox
 import tkinter.filedialog
-import skimage.io
+# import skimage.io
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.backends.backend_tkagg as Tk_Agg
 from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk as NT2Tk
 from scipy import ndimage as ndi
-import skimage.measure
-import pandas as pd
-from math import log
-import pickle
+# import skimage.measure
+# import pandas as pd
+# from math import log
+# import pickle
 import sys
-from imageMenu import DestroyTK, popupmsg
-import imageMenu as iMO
-import fileMenu as fMO
-import dataMenu as dMO
-import saveMenu as sMO
+
+from TME_analyzer.imageMenu import DestroyTK, popupmsg
+from TME_analyzer import imageMenu as iMO
+from TME_analyzer import fileMenu as fMO
+from TME_analyzer import dataMenu as dMO
+from TME_analyzer import saveMenu as sMO
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 
