@@ -106,7 +106,7 @@ def check_consent(loglvl=logging.ERROR):
 
 def consent_given():
     root = tkinter.Tk()
-    root.title("TME Analyzer v0")
+    root.title("TME Analyzer v" + str(tmeanalyzer.__version__))
     root.geometry("1200x800")
     ImageAnalysis(root)
     root.mainloop()

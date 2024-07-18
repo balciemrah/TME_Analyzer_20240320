@@ -51,6 +51,3 @@ push = true
 "src/tmeanalyzer/version.py" = [
     "{version}"
 ]
-"TME_analyzer/version.py" = [
-    "{version}"
-]
