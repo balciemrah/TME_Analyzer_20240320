@@ -7,7 +7,7 @@
 [*TME-Analyzer: a new interactive and dynamic image analysis tool that identified immune cell distances as predictors for survival of triple negative breast cancer patients*](https://doi.org/10.1038/s44303-024-00022-6).  
 npj Imaging.
 
-The stand alone software can be downloaded [*here*](https://drive.usercontent.google.com/download?id=1ObdesFLmeaE56UTp2zog59veOFrMOFHC&export=download&authuser=0).
+The stand alone software can be downloaded [*here*](https://drive.usercontent.google.com/download?id=1288y4Ahl78n2yu5Ou3AthBqXfmmqB_qC&export=download&authuser=0).
 
 Please cite the paper if you are using TME-Analyzer or (parts of) this code in your research.
 
@@ -23,8 +23,8 @@ Get python version 3.11.9
 - Create a venv: `python.exe -m venv .venv`
 - Activate the environment `./.venv/Scripts/Activate.ps1`; 
   - Maybe with an execution policy:  `powershell -ExecutionPolicy Bypass -File "./.venv/Scripts/Activate.ps1"`
-- Install tmeanalyzer with pip: `pip install .`
-  - You can install in developer mode with: `pip install -e .`
+- Install tmeanalyzer with pip: `pip install -e .`
+  - You can install in developer mode with: `pip install -e .[dev]`
 - Run TME-Analyzer: `tmeanalyzer`
 
 ### Venv
