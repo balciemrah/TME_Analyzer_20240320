@@ -17,8 +17,7 @@ Follow one of the following installations approaches (pip, venv or linux)
 
 ### pip
 
-The pip installation was created by [*Rolf Harkes*](https://github.com/rharkes).  
-npj Imaging.
+The pip installation was created by [*Rolf Harkes*](https://github.com/rharkes).
 Get python version 3.11.9
 - Create a venv: `python.exe -m venv .venv`
 - Activate the environment `./.venv/Scripts/Activate.ps1`; 
