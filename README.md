@@ -7,7 +7,7 @@
 [*TME-Analyzer: a new interactive and dynamic image analysis tool that identified immune cell distances as predictors for survival of triple negative breast cancer patients*](https://doi.org/10.1038/s44303-024-00022-6).  
 npj Imaging.
 
-The stand alone software can be downloaded [*here*](https://drive.usercontent.google.com/download?id=1288y4Ahl78n2yu5Ou3AthBqXfmmqB_qC&export=download&authuser=0).
+The stand alone software can be downloaded [*here*](https://drive.usercontent.google.com/download?id=1maGzQBfjvbCphI1srRWiicWShfaJLmWm&export=download&authuser=0).
 
 Please cite the paper if you are using TME-Analyzer or (parts of) this code in your research.
 
