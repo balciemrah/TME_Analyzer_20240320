@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tmeanalyzer"
-version = "1.0.5"
+version = "1.0.6"
 description = "tmeanalyzer"
 readme = "README.md"
 authors = [{ name = "Hayri E Balcioglu", email = "balciemrah@gmail.com" }]
@@ -36,7 +36,7 @@ tmeanalyzer = "tmeanalyzer:start"
 package-dir = {"" = "src"}
 
 [tool.bumpver]
-current_version = "1.0.5"
+current_version = "1.0.6"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "bump version {old_version} -> {new_version}"
 commit = true
