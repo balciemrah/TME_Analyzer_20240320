@@ -4,26 +4,30 @@ Created on Thu Aug  2 17:17:39 2018
 
 @author: github.com/balciemrah
 """
-
 import logging
 import tkinter
 import os
 from tkinter import ttk as ttkinter
 import tkinter.messagebox
-import tkinter.filedialog# import skimage.io
+import tkinter.filedialog
+# import skimage.io
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.backends.backend_tkagg as Tk_Agg
 from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk as NT2Tk
 from scipy import ndimage as ndi
+# import skimage.measure
+# import pandas as pd
+# from math import log
+# import pickle
 import sys
 
-from TME_analyzer.imageMenu import DestroyTK, popupmsg
-from TME_analyzer import imageMenu as iMO
-from TME_analyzer import fileMenu as fMO
-from TME_analyzer import dataMenu as dMO
-from TME_analyzer import saveMenu as sMO
-from TME_analyzer.version import __version__ as version
+import tmeanalyzer
+from .imageMenu import DestroyTK, popupmsg
+from . import imageMenu as iMO
+from . import fileMenu as fMO
+from . import dataMenu as dMO
+from . import saveMenu as sMO
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 
@@ -47,7 +51,7 @@ def check_consent(loglvl=logging.ERROR):
     logger.addHandler(consolehandler)
     logger.setLevel(loglvl)
     logger.info(f"TkVersion: {tkinter.TkVersion}")
-    logger.info(f"TME Analyzer version: {version}")
+    logger.info(f"TME Analyzer version: {tmeanalyzer.__version__}")
     def popup_license():
         popuplicense = tkinter.Tk()
         popuplicense.wm_title("License")
@@ -716,6 +720,3 @@ class ImageAnalysis:
     def QuitSure(self):
         DestroyTK(self.log_keeping)
         self.master.destroy()
-
-
-check_consent()
