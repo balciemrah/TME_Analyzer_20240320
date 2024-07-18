@@ -24,7 +24,7 @@ Get python version 3.11.9
 - Activate the environment `./.venv/Scripts/Activate.ps1`; 
   - Maybe with an execution policy:  `powershell -ExecutionPolicy Bypass -File "./.venv/Scripts/Activate.ps1"`
 - Install tmeanalyzer in editable format with pip: `pip install -e .`
-  - You can install in developer mode with: `pip install -e .[dev]`
+  - You can install in developer mode with: `pip install -e .[dev]` (needed for freezing)
 - Run TME-Analyzer: `tmeanalyzer`
 
 ### Venv
