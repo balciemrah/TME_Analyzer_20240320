@@ -45,7 +45,7 @@ Run: `mamba env create -f environment.yml`
 
 And run: `python ./src/tmeanalyzer/TME_analyzer.py`
 
-## Freeze it with pyinstaller to create a single executable (tested on Windows and Ubuntu 22.04)
+## Freeze it with pyinstaller to create a single executable (available in developer mode, tested on Windows and Ubuntu 22.04)
 
   - Creat a `.spec` file with: `pyi-makespec --onefile --noconsole --paths=./src/tmeanalyzer ./src/tmeanalyzer/TME_analyzer.py --hidden-import='PIL._tkinter_finder'`
   - Create an executable with: `pyinstaller TME_analyzer.spec`
