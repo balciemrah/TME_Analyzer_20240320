@@ -51,3 +51,7 @@ push = true
 "src/tmeanalyzer/version.py" = [
     "{version}"
 ]
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
