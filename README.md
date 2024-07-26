@@ -7,20 +7,33 @@
 [*TME-Analyzer: a new interactive and dynamic image analysis tool that identified immune cell distances as predictors for survival of triple negative breast cancer patients*](https://doi.org/10.1038/s44303-024-00022-6).  
 npj Imaging.
 
-The stand alone software can be downloaded [*here*](https://drive.usercontent.google.com/download?id=1ObdesFLmeaE56UTp2zog59veOFrMOFHC&export=download&authuser=0).
+The stand alone software can be downloaded [*here*](https://drive.usercontent.google.com/download?id=1maGzQBfjvbCphI1srRWiicWShfaJLmWm&export=download&authuser=0).
 
 Please cite the paper if you are using TME-Analyzer or (parts of) this code in your research.
 
-## Getting started
+## Getting started 
+
+Follow one of the following installations approaches (pip, venv or linux)
+
+### pip
+
+The pip installation was created by [*Rolf Harkes*](https://github.com/rharkes).
+
+Get python version 3.11.9
+- Create a venv: `python.exe -m venv .venv`
+- Activate the environment `./.venv/Scripts/Activate.ps1`; 
+  - Maybe with an execution policy:  `powershell -ExecutionPolicy Bypass -File "./.venv/Scripts/Activate.ps1"`
+- Install tmeanalyzer in editable format with pip: `pip install -e .`
+  - You can install in developer mode with: `pip install -e .[dev]` (needed for freezing)
+- Run TME-Analyzer: `tmeanalyzer`
 
 ### Venv
 
-Get python version 3.8.10
+Get python version 3.11.9
 - Create a venv: `python.exe -m venv .venv`
 - Activate the environment `./.venv/Scripts/Activate.ps1`; 
   - Maybe with an execution policy:  `powershell -ExecutionPolicy Bypass -File "./.venv/Scripts/Activate.ps1"`
 - install dependencies: `python.exe -m pip install -r requirements.txt`
-  - note that requirements.txt give the minimal packages, and this should get all the packages in the requirements_extended.txt file
   
 And run: `python.exe TME_analyzer.py`
 
@@ -30,10 +43,15 @@ Run: `mamba env create -f environment.yml`
 
 And run: `python.exe TME_analyzer.py`
 
-## Cx-Freeze
+## Freeze it with pyinstaller to create a single .exe file (tested on Windows)
 
-Pack the project into a single binary with: 
-```python setup.py build```
+- for pip installation: 
+  - Pack the project into a `spec` file with: `pyi-makespec --onefile --noconsole TME-Analyzer.py`
+  - Create a .exe file with: `pyinstaller TME-Analyzer.spec`
+
+- for Venv installation: 
+  - Pack the project into a `spec` file with: `pyi-makespec --onefile --noconsole TME_analyzer.py`
+  - Create a .exe file with: `pyinstaller TME_analyzer.spec`
 
 ## Image analysis tutorial
 
