@@ -15,7 +15,7 @@ Please cite the paper if you are using TME-Analyzer or (parts of) this code in y
 
 ## Getting started 
 
-Follow one of the following installations approaches (pip, venv or linux)
+Follow one of the following installations approaches (pip, venv or conda)
 
 ### pip
 
