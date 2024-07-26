@@ -1,3 +1,5 @@
+[![Black](https://github.com/balciemrah/TME_Analyzer_20240320/actions/workflows/black.yml/badge.svg)](https://github.com/balciemrah/TME_Analyzer_20240320/actions/workflows/black.yml)
+
 # TME_Analyzer
 
 ## Introduction
@@ -23,8 +25,8 @@ Get python version 3.11.9
 - Create a venv: `python.exe -m venv .venv`
 - Activate the environment `./.venv/Scripts/Activate.ps1`; 
   - Maybe with an execution policy:  `powershell -ExecutionPolicy Bypass -File "./.venv/Scripts/Activate.ps1"`
-- Install tmeanalyzer in editable format with pip: `pip install -e .`
-  - You can install in developer mode with: `pip install -e .[dev]` (needed for freezing)
+- Install tmeanalyzer in [editable](https://pip.pypa.io/en/stable/cli/pip_install/#options) format with pip: `pip install -e .`
+  - You can install in developer mode with: `pip install -e .[dev]`
 - Run TME-Analyzer: `tmeanalyzer`
 
 ### Venv
@@ -35,23 +37,18 @@ Get python version 3.11.9
   - Maybe with an execution policy:  `powershell -ExecutionPolicy Bypass -File "./.venv/Scripts/Activate.ps1"`
 - install dependencies: `python.exe -m pip install -r requirements.txt`
   
-And run: `python.exe TME_analyzer.py`
+And run: `python ./src/tmeanalyzer/TME_analyzer.py`
 
 ### Conda
 
 Run: `mamba env create -f environment.yml`
 
-And run: `python.exe TME_analyzer.py`
+And run: `python ./src/tmeanalyzer/TME_analyzer.py`
 
-## Freeze it with pyinstaller to create a single .exe file (tested on Windows)
+## Freeze it with pyinstaller to create a single executable (tested on Windows and Ubuntu 22.04)
 
-- for pip installation: 
-  - Pack the project into a `spec` file with: `pyi-makespec --onefile --noconsole TME-Analyzer.py`
-  - Create a .exe file with: `pyinstaller TME-Analyzer.spec`
-
-- for Venv installation: 
-  - Pack the project into a `spec` file with: `pyi-makespec --onefile --noconsole TME_analyzer.py`
-  - Create a .exe file with: `pyinstaller TME_analyzer.spec`
+  - Creat a `.spec` file with: `pyi-makespec --onefile --noconsole --paths=./src/tmeanalyzer ./src/tmeanalyzer/TME_analyzer.py --hidden-import='PIL._tkinter_finder'`
+  - Create an executable with: `pyinstaller TME_analyzer.spec`
 
 ## Image analysis tutorial
 
