@@ -61,8 +61,7 @@ def check_consent(loglvl=logging.ERROR):
     logger.addHandler(consolehandler)
     logger.setLevel(loglvl)
     logger.info(f"TkVersion: {tkinter.TkVersion}")
-    if __package__ == "tmeanalyser":
-        logger.info(f"TME Analyzer version: {__version__}")
+    logger.info(f"TME Analyzer version: {__version__}")
 
     def popup_license():
         popuplicense = tkinter.Tk()
