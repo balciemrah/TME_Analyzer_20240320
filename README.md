@@ -1,3 +1,5 @@
+[![Black](https://github.com/balciemrah/TME_Analyzer_20240320/actions/workflows/black.yml/badge.svg)](https://github.com/balciemrah/TME_Analyzer_20240320/actions/workflows/black.yml)
+
 # TME_Analyzer
 
 ## Introduction
@@ -35,7 +37,7 @@ Get python version 3.11.9
   - Maybe with an execution policy:  `powershell -ExecutionPolicy Bypass -File "./.venv/Scripts/Activate.ps1"`
 - install dependencies: `python.exe -m pip install -r requirements.txt`
   
-And run: `python.exe TME_analyzer.py`
+And run: `python ./src/tmeanalyzer/TME_analyzer.py`
 
 ### Conda
 
